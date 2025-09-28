@@ -9,6 +9,7 @@ env:
   DOTNET_VER: 6.0.32
   LWJGL_VER: 3.3.4
   APPHOST_TARGET_ADDR: 196792
+  HOME_ABSOLUTE: /home/runner
 
 jobs:
   build:
@@ -57,7 +58,7 @@ jobs:
     - name: Bundle into ValleyCore.tar.gz
       run: |
         touch ~/vc/*
-        tar -czf ~/publish/ValleyCore.tar.gz --owner=0 --group=0 --directory=~/vc/ .
+        tar -czf ~/publish/ValleyCore.tar.gz --owner=0 --group=0 --directory=$HOME_ABSOLUTE/vc/ .
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
