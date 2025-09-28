@@ -1,0 +1,66 @@
+name: ValleyCore main build (arm64)
+
+on:
+  workflow_dispatch:
+
+# make sure to update checksums.txt and dllstocopy.txt before updating this
+# APPHOST_TARGET_ADDR is currently equivalent to 0x300b8, may change in future releases
+env:
+  DOTNET_VER: 6.0.32
+  LWJGL_VER: 3.3.4
+  APPHOST_TARGET_ADDR: 196792
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        path: repo
+
+    - name: Initialize directories
+      run: cd && mkdir dl vc publish && mv $GITHUB_WORKSPACE/repo/ ~
+
+    - name: Download required files
+      run: |
+        cd ~/dl
+        wget https://globalcdn.nuget.org/packages/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg https://globalcdn.nuget.org/packages/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg
+        wget https://build.lwjgl.org/release/$LWJGL_VER/linux/arm64/liblwjgl_lz4.so
+    
+    - name: Verify hashes
+      run: | 
+        cd ~/dl
+        sha256sum -c ~/repo/checksums.txt
+
+    - name: Copy runtime files, apphost, lwjgl_lz4 & patch.sh
+      run: | 
+        unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/*
+        sed -E 's/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net6.0\/\1 /g' ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
+        unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg $(cat ~/arglist.txt)
+        unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/apphost
+        cp ~/dl/liblwjgl_lz4.so ~/vc/
+        chmod 664 ~/vc/*
+
+    - name: Customize apphost
+      run: | 
+        cd ~/vc
+        dd if="/dev/zero" of=apphost count=256 bs=1 seek=$APPHOST_TARGET_ADDR conv=notrunc
+        printf "Stardew Valley.dll" | dd of=apphost bs=1 seek=$APPHOST_TARGET_ADDR conv=notrunc
+        mv apphost "Stardew Valley" && chmod 775 "Stardew Valley"
+
+    - name: Copy patch.sh and make it executable
+      run: |
+        cp ~/repo/patch.sh ~/vc/
+        chmod 775 ~/vc/patch.sh
+
+    - name: Bundle into ValleyCore.tar.gz
+      run: |
+        touch ~/vc/*
+        tar -czf ~/publish/ValleyCore.tar.gz --owner=0 --group=0 --directory=~/vc/ .
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ValleyCore.tar.gz
+        path: /home/runner/publish/ValleyCore.tar.gz
