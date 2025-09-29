@@ -30,10 +30,10 @@ Yes! No x86 emulation is used.
 Since Stardew Valley is written in C# (but doesn't use Unity), it's compiled to portable CIL bytecode instead of a native binary. While the runtime bundled with the vanilla game only supports x86-64, it can be easily swapped out with an ARM64 version.
 #### Why does the main dll have to be patched then?
 The architecture is marked in the header as x86-64, resulting in an BadImageFormatException. By patching a single byte, it can be "converted" so that the ARM-native runtime accepts it.
-### The installer doesn't run, how do I extract the game files?
+### The GOG installer doesn't run, how do I extract the game files?
 `cd` into an empty directory and run `unzip [installer name here.sh]` (replace the square brackets with the filename). All of the important game files are located in `data/noarch/`.
 
 ## Copyright
 The published builds use binaries courtesy of:
-* LWJGL ([licensed under the BSD license](https://www.lwjgl.org/license))
-* .NET Foundation ([licensed under the MIT license](https://github.com/dotnet/core/blob/main/LICENSE.TXT))
+* LWJGL ([under the BSD license](https://www.lwjgl.org/license))
+* .NET Foundation ([under the MIT license](https://github.com/dotnet/core/blob/main/LICENSE.TXT))
