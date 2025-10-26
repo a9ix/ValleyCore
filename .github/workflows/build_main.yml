@@ -38,7 +38,7 @@ jobs:
     - name: Copy runtime files, apphost & lwjgl_lz4
       run: | 
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/*
-        sed -E 's/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net$DOTNET_MAJOR_VER\/\1 /g' ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
+        sed -E "s/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net$DOTNET_MAJOR_VER\/\1 /g" ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg $(cat ~/arglist.txt)
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/apphost
         cp ~/dl/liblwjgl_lz4.so ~/vc/
