@@ -6,6 +6,7 @@ on:
 # make sure to update checksums.txt and dllstocopy.txt before updating this
 # APPHOST_TARGET_ADDR is currently equivalent to 0x300b8, may change in future releases
 env:
+  DOTNET_MAJOR_VER: 6.0
   DOTNET_VER: 6.0.32
   LWJGL_VER: 3.3.4
   APPHOST_TARGET_ADDR: 196792
@@ -34,10 +35,10 @@ jobs:
         cd ~/dl
         sha256sum -c ~/repo/checksums.txt
 
-    - name: Copy runtime files, apphost, lwjgl_lz4 & patch.sh
+    - name: Copy runtime files, apphost & lwjgl_lz4
       run: | 
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/*
-        sed -E 's/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net6.0\/\1 /g' ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
+        sed -E 's/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net$DOTNET_MAJOR_VER\/\1 /g' ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg $(cat ~/arglist.txt)
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/apphost
         cp ~/dl/liblwjgl_lz4.so ~/vc/
@@ -64,4 +65,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ValleyCore.tar.gz
-        path: /home/runner/publish/ValleyCore.tar.gz
+        path: ${{ env.HOME_ABSOLUTE }}/publish/ValleyCore.tar.gz
