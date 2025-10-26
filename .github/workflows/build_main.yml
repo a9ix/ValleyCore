@@ -6,7 +6,7 @@ on:
 # make sure to update checksums.txt and dllstocopy.txt before updating this
 # APPHOST_TARGET_ADDR is currently equivalent to 0x300b8, may change in future releases
 env:
-  DOTNET_MAJOR_VER: 6.0
+  DOTNET_MAJOR_VER: "6.0"
   DOTNET_VER: 6.0.32
   LWJGL_VER: 3.3.4
   APPHOST_TARGET_ADDR: 196792
