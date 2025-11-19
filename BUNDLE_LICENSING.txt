@@ -3,7 +3,7 @@ ValleyCore itself is licensed under the MIT license:
 MIT License
 
 Copyright (c) 2025 a9ix (https://github.com/a9ix) 
-                   and Noa Himesaka (https://noa.codes/)
+                   and NoaHimesaka1873 (https://noa.codes/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
