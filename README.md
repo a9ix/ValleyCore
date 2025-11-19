@@ -4,7 +4,7 @@ Play Stardew Valley natively on 64-bit ARM systems running Linux, now with moddi
 
 ## Installation
 0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). Steam version might work.
-1. Make sure that SDL2, OpenAL, .NET 6, unzip, and curl are installed.
+1. Make sure that both SDL2 and OpenAL are installed (on Debian-based distros: `sudo apt install libsdl2-2.0-0 libopenal1`)
 2. Download the latest version of ValleyCore from releases, and extract the files to the game directory (if the game is directly in your home directory: `cd ~/Stardew\ Valley/game && tar -xzf ~/Downloads/ValleyCore.tar.gz`)
 3. Run the patch.sh script (e.g. `~/Stardew\ Valley/game/patch.sh`)
 
@@ -36,5 +36,7 @@ The architecture is marked in the header as x86-64, resulting in a BadImageForma
 
 ## Copyright
 The published builds use binaries courtesy of:
-* LWJGL ([under the BSD license](https://www.lwjgl.org/license))
 * .NET Foundation ([under the MIT license](https://github.com/dotnet/core/blob/main/LICENSE.TXT))
+* Mono Project ([under the MIT license](https://github.com/mono/SkiaSharp/blob/main/LICENSE.md))
+* LWJGL ([under the BSD 3-clause license](https://www.lwjgl.org/license))
+* SMAPI ([under the LGPLv3 license](https://github.com/Pathoschild/SMAPI/blob/develop/LICENSE.txt))

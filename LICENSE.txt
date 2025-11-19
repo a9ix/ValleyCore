@@ -1,6 +1,7 @@
 MIT License
 
-Copyright (c) 2025 a9ix (https://github.com/a9ix)
+Copyright (c) 2025 a9ix (https://github.com/a9ix) 
+                   and Noa Himesaka (https://noa.codes/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -23,5 +24,5 @@ SOFTWARE.
 ---
 
 Important: The former license does not necessarily apply to third-party
-components in release packages. For licensing information concerning .NET and
-LWJGL, refer to README.MD
+components in release packages. For licensing information concerning .NET,
+LWJGL, SkiaSharp and SMAPI refer to BUNDLE_LICENSING.txt

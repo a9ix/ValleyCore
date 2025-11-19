@@ -23,18 +23,18 @@ patchifvalid() {
         return
     fi
 
-    filesfound=1
     arch=$(arch_as_hex "$1")
     if [ $arch = "86" ]; then
         patch_dll "$1"
-    elif [ $arch = "aa" ]; then
-        echo "$1 seems to be already patched"
-    else
-        echo "$1 may be malformed"
+#   elif [ $arch = "aa" ]; then
+#       echo "$1 seems to be already patched"
+#   else
+#       echo "$1 may be malformed"
     fi
 }
 
 export -f patchifvalid arch_as_hex patch_dll
 export arch_pos
 find ./Mods/ -type f -name "*.dll" -exec bash -c 'patchifvalid "{}"' \;
-echo "Done! Ignore any errors here."
+
+./unix-launcher.sh
