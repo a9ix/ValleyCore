@@ -42,14 +42,11 @@ warn() {
 
 mkdir temp
 pushd temp
-curl -fLo SkiaSharp.zip https://www.nuget.org/api/v2/package/SkiaSharp.NativeAssets.Linux/2.80.3
 curl -fLO https://github.com/Pathoschild/SMAPI/releases/download/4.3.2/SMAPI-4.3.2-installer.zip
-unzip SkiaSharp.zip
 unzip SMAPI-4.3.2-installer.zip
 popd
 
 unzip "temp/SMAPI 4.3.2 installer/internal/linux/install.dat"
-cp temp/runtimes/linux-arm64/native/libSkiaSharp.so .
 cp "Stardew Valley.deps.json" StardewModdingAPI.deps.json
 
 # no unmanaged code is contained in these, so this works

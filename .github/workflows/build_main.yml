@@ -9,6 +9,7 @@ env:
   DOTNET_MAJOR_VER: "6.0"
   DOTNET_VER: 6.0.32
   LWJGL_VER: 3.3.4
+  SKIASHARP_VER: 2.80.3
   APPHOST_TARGET_ADDR: 196792
   HOME_ABSOLUTE: /home/runner
 
@@ -28,6 +29,7 @@ jobs:
       run: |
         cd ~/dl
         wget https://globalcdn.nuget.org/packages/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg https://globalcdn.nuget.org/packages/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg
+        wget https://globalcdn.nuget.org/packages/skiasharp.nativeassets.linux.$SKIASHARP_VER.nupkg
         wget https://build.lwjgl.org/release/$LWJGL_VER/linux/arm64/liblwjgl_lz4.so
     
     - name: Verify hashes
@@ -41,6 +43,7 @@ jobs:
         sed -E "s/^([0-9A-Za-z\.]+)/runtimes\/linux-arm64\/lib\/net$DOTNET_MAJOR_VER\/\1 /g" ~/repo/dllstocopy.txt | tr -d '\n' > ~/arglist.txt
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.runtime.linux-arm64.$DOTNET_VER.nupkg $(cat ~/arglist.txt)
         unzip -j -d ~/vc/ ~/dl/microsoft.netcore.app.host.linux-arm64.$DOTNET_VER.nupkg runtimes/linux-arm64/native/apphost
+        unzip -j -d ~/vc/ ~/dl/skiasharp.nativeassets.linux.$SKIASHARP_VER.nupkg runtimes/linux-arm64/native/libSkiaSharp.so        
         cp ~/dl/liblwjgl_lz4.so ~/vc/
         chmod 664 ~/vc/*
 
