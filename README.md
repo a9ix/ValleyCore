@@ -1,9 +1,9 @@
-# ValleyCore
-Play Stardew Valley natively on 64-bit ARM systems running Linux.
+# ValleyCore with SMAPI
+Play Stardew Valley natively on 64-bit ARM systems running Linux, now with modding ability!
 
 ## Installation
-0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley).
-1. Make sure that both SDL2 and OpenAL are installed (on Debian-based distros: `sudo apt install libsdl2-2.0-0 libopenal1`)
+0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). Steam version might work.
+1. Make sure that SDL2, OpenAL, .NET 6, unzip, and curl are installed.
 2. Download the latest version of ValleyCore from releases, and extract the files to the game directory (if the game is directly in your home directory: `cd ~/Stardew\ Valley/game && unzip ~/Downloads/ValleyCore.tar.gz`)
 3. Run the patch.sh script (e.g. `~/Stardew\ Valley/game/patch.sh`)
 
