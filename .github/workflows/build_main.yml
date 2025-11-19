@@ -64,7 +64,7 @@ jobs:
     - name: Copy SMAPI files
       run: |
         unzip -j -d ~/dl/ ~/dl/SMAPI-$SMAPI_VER-installer.zip "SMAPI $SMAPI_VER installer/internal/linux/install.dat"
-        unzip -d ~/vc/ ~/install.dat
+        unzip -d ~/vc/ ~/dl/install.dat
         chmod 775 ~/vc/unix-launcher.sh
         cp ~/repo/smapi-wrapper.sh ~/vc/ && chmod 775 ~/vc/smapi-wrapper.sh
         
