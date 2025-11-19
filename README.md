@@ -1,5 +1,6 @@
 # ValleyCore with SMAPI
 Play Stardew Valley natively on 64-bit ARM systems running Linux, now with modding ability!
+<img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/3d37df9b-8a4f-4355-a24f-706d1052377b" />
 
 ## Installation
 0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). Steam version might work.
