@@ -54,7 +54,9 @@ jobs:
     - name: Copy patch.sh and make it executable
       run: |
         cp ~/repo/patch.sh ~/vc/
+        cp ~/repo/patch-mods.sh ~/vc/
         chmod 775 ~/vc/patch.sh
+        chmod 775 ~/vc/patch-mods.sh
 
     - name: Bundle into ValleyCore.tar.gz
       run: |
