@@ -48,7 +48,7 @@ patchifvalid "StardewModdingAPI.dll"
 if ! [ $filesfound -eq 1 ]; then
     echo "No files could be patched. Make sure the patch.sh script is in the same directory as the dll files."
     sleep 5 && exit
-}
+fi
 
 cp "Stardew Valley.deps.json" StardewModdingAPI.deps.json
 
