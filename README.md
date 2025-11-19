@@ -5,11 +5,11 @@ Play Stardew Valley natively on 64-bit ARM systems running Linux, now with moddi
 ## Installation
 0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). Steam version might work.
 1. Make sure that SDL2, OpenAL, .NET 6, unzip, and curl are installed.
-2. Download the latest version of ValleyCore from releases, and extract the files to the game directory (if the game is directly in your home directory: `cd ~/Stardew\ Valley/game && unzip ~/Downloads/ValleyCore.tar.gz`)
+2. Download the latest version of ValleyCore from releases, and extract the files to the game directory (if the game is directly in your home directory: `cd ~/Stardew\ Valley/game && tar -xzf ~/Downloads/ValleyCore.tar.gz`)
 3. Run the patch.sh script (e.g. `~/Stardew\ Valley/game/patch.sh`)
 
 ## Performance
-*Tested on a Raspberry Pi 4 (running at 1.5GHz, box86-rpi4 0.3.4 from Debian repos)*
+*Tested on a Raspberry Pi 4 (running at 1.5GHz, box64-rpi4 0.3.4 from Debian repos)*
 
 * Startup
   * Native: ~40 s
