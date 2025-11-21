@@ -43,21 +43,24 @@ patchifvalid "xTile.dll"
 patchifvalid "StardewValley.GameData.dll"
 patchifvalid "BmFont.dll"
 patchifvalid "Lidgren.Network.dll"
-patchifvalid "StardewModdingAPI.dll"
+
+if [ -a "StardewModdingAPI.dll" ]; then
+    patchifvalid "StardewModdingAPI.dll"
+
+    cp "Stardew Valley.deps.json" StardewModdingAPI.deps.json
+
+    mv StardewValley StardewValley-original
+    mv smapi-wrapper.sh StardewValley
+
+    export -f patchifvalid arch_as_hex patch_dll
+    export arch_pos
+    find ./Mods/ -type f -name "*.dll" -exec bash -c 'patchifvalid "{}"' \;
+fi
 
 if ! [ $filesfound -eq 1 ]; then
     echo "No files could be patched. Make sure the patch.sh script is in the same directory as the dll files."
     sleep 5 && exit
 fi
-
-cp "Stardew Valley.deps.json" StardewModdingAPI.deps.json
-
-mv StardewValley StardewValley-original
-mv smapi-wrapper.sh StardewValley
-
-export -f patchifvalid arch_as_hex patch_dll
-export arch_pos
-find ./Mods/ -type f -name "*.dll" -exec bash -c 'patchifvalid "{}"' \;
 
 echo "Done! Run 'StardewValley' (no spaces) to launch game. "
 

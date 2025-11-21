@@ -61,6 +61,17 @@ jobs:
         cp ~/repo/patch.sh ~/vc/
         chmod 775 ~/vc/patch.sh
 
+    - name: Copy README and license information
+      run: |
+        cd ~/vc
+        cp ~/repo/README.md VALLEYCORE_README.md
+        cp ~/repo/BUNDLE_LICENSING.txt VALLEYCORE_LICENSING.txt
+
+    - name: Bundle into ValleyCore.tar.gz
+      run: |
+        touch ~/vc/*
+        tar -czf ~/publish/ValleyCore.tar.gz --owner=0 --group=0 --directory=$HOME_ABSOLUTE/vc/ .
+
     - name: Copy SMAPI files
       run: |
         unzip -j -d ~/dl/ ~/dl/SMAPI-$SMAPI_VER-installer.zip "SMAPI $SMAPI_VER installer/internal/linux/install.dat"
@@ -74,21 +85,15 @@ jobs:
         cp -p "Stardew Valley" StardewModdingAPI
         dd if="/dev/zero" of=StardewModdingAPI count=256 bs=1 seek=$APPHOST_TARGET_ADDR conv=notrunc
         printf "StardewModdingAPI.dll" | dd of=StardewModdingAPI bs=1 seek=$APPHOST_TARGET_ADDR conv=notrunc
-
-    - name: Copy README and license information
-      run: |
-        cd ~/vc
-        cp ~/repo/README.md VALLEYCORE_README.md
-        cp ~/repo/BUNDLE_LICENSING.txt VALLEYCORE_LICENSING.txt
-
-    - name: Bundle into ValleyCore.tar.gz
+        
+    - name: Bundle into ValleyCore-SMAPI.tar.gz
       run: |
         touch ~/vc/*
-        tar -czf ~/publish/ValleyCore.tar.gz --owner=0 --group=0 --directory=$HOME_ABSOLUTE/vc/ .
+        tar -czf ~/publish/ValleyCore-SMAPI.tar.gz --owner=0 --group=0 --directory=$HOME_ABSOLUTE/vc/ .
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: ValleyCore.tar.gz
-        path: ${{ env.HOME_ABSOLUTE }}/publish/ValleyCore.tar.gz
+        path: ${{ env.HOME_ABSOLUTE }}/publish/*
         
