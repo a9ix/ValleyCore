@@ -1,12 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$( cd "$( dirname "$(realpath "$0")" )" && pwd )"
 cd "${CURRENT_DIR}"
 
 # the architecture of PE executables and libraries is stored at 0x84
 # we need to change it from 8664 to AA64
 # it's little endian, so the byte to change is at 0x85
-arch_pos=$((16#85))
+# arch_pos=$((16#85))
+arch_pos=133
 
 arch_as_hex() {
     # returns the upper arch byte as hex from file $1
@@ -18,7 +19,7 @@ patch_dll() {
 }
 
 patchifvalid() {
-    if ! [ -a "$1" ]; then
+    if ! [ -e "$1" ]; then
         echo "$1 does not exist in this directory"
         return
     fi
@@ -33,8 +34,7 @@ patchifvalid() {
     fi
 }
 
-export -f patchifvalid arch_as_hex patch_dll
-export arch_pos
-find ./Mods/ -type f -name "*.dll" -exec bash -c 'patchifvalid "{}"' \;
+# using "read" here as launching multiple shells isn't ideal for performance
+find ./Mods/ -type f -name "*.dll" | while read -r filepath; do patchifvalid "$filepath"; done
 
 ./unix-launcher.sh
