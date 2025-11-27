@@ -44,6 +44,11 @@ patchifvalid "StardewValley.GameData.dll"
 patchifvalid "BmFont.dll"
 patchifvalid "Lidgren.Network.dll"
 
+if [ -a "Steamworks.NET.dll" ]; then
+    patchifvalid "Steamworks.NET.dll"
+    echo "Steam files found! Patching."
+fi
+
 if [ -a "StardewModdingAPI.dll" ]; then
     patchifvalid "StardewModdingAPI.dll"
 
