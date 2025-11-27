@@ -15,7 +15,8 @@ arch_as_hex() {
 }
 
 patch_dll() {
-    printf "\xaa" | dd of="$1" bs=1 seek=$arch_pos conv=notrunc
+    # 252 is 0xAA in octal
+    printf "\252 | dd of="$1" bs=1 seek=$arch_pos conv=notrunc
 }
 
 patchifvalid() {
