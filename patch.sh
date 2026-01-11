@@ -6,21 +6,21 @@ cd "${CURRENT_DIR}"
 # the architecture of PE executables and libraries is stored at 0x84
 # we need to change it from 8664 to AA64
 # it's little endian, so the byte to change is at 0x85
-arch_pos=$((16#85))
+ARCH_POS=$((16#85))
 
 filesfound=0
 
 arch_as_hex() {
     # returns the upper arch byte as hex from file $1
-    od -A n -j $arch_pos -N 1 -t x1 "$1" | grep -Eo "[0-9a-f]+" | tr -d "\n"
+    od -A n -j $ARCH_POS -N 1 -t x1 "$1" | grep -Eo "[0-9a-f]+" | tr -d "\n"
 }
 
 patch_dll() {
-    printf "\xaa" | dd of="$1" bs=1 seek=$arch_pos conv=notrunc
+    printf "\xaa" | dd of="$1" bs=1 seek=$ARCH_POS conv=notrunc
 }
 
 patchifvalid() {
-    if ! [ -a "$1" ]; then
+    if ! [ -e "$1" ]; then
         echo "$1 does not exist in this directory"
         return
     fi
@@ -44,30 +44,35 @@ patchifvalid "StardewValley.GameData.dll"
 patchifvalid "BmFont.dll"
 patchifvalid "Lidgren.Network.dll"
 
-if [ -a "Steamworks.NET.dll" ]; then
+if [ -e "Steamworks.NET.dll" ]; then
     patchifvalid "Steamworks.NET.dll"
     echo "Steam files found! Patching."
 fi
 
-if [ -a "StardewModdingAPI.dll" ]; then
+if [ -e "StardewModdingAPI.dll" ]; then
+    if ! [ -e "smapi-wrapper.sh" ]; then
+        echo -e \
+        "You have either:\n\
+         * ran the patch.sh script twice, which isn't necessary\n\
+         * or tried to upgrade with a non-SMAPI bundle\n\
+           (please download ValleyCore-SMAPI.tar.gz instead)" >&2
+        sleep 5 && exit 1
+    fi
+
     patchifvalid "StardewModdingAPI.dll"
 
     cp "Stardew Valley.deps.json" StardewModdingAPI.deps.json
 
-    mv StardewValley StardewValley-original
+    mv -n StardewValley StardewValley-original
     mv smapi-wrapper.sh StardewValley
-
-    export -f patchifvalid arch_as_hex patch_dll
-    export arch_pos
-    find ./Mods/ -type f -name "*.dll" -exec bash -c 'patchifvalid "{}"' \;
 fi
 
 if ! [ $filesfound -eq 1 ]; then
-    echo "No files could be patched. Make sure the patch.sh script is in the same directory as the dll files."
-    sleep 5 && exit
+    echo "No files could be patched. Make sure the patch.sh script is in the same directory as the dll files." >&2
+    sleep 5 && exit 1
 fi
 
 echo "Done! Run 'StardewValley' (no spaces) to launch game. "
 
 # ensures that the console stays open for a while
-sleep 5 
+sleep 5 && exit 0
