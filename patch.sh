@@ -65,6 +65,8 @@ if [ -e "StardewModdingAPI.dll" ]; then
 
     mv -n StardewValley StardewValley-original
     mv smapi-wrapper.sh StardewValley
+
+    find ./Mods/ -type f -name "*.dll" | while read -r filepath; do patchifvalid "$filepath"; done
 fi
 
 if ! [ $filesfound -eq 1 ]; then
