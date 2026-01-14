@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: repo
 
@@ -92,7 +92,7 @@ jobs:
         tar -czf ~/publish/ValleyCore-SMAPI.tar.gz --owner=0 --group=0 --directory=$HOME_ABSOLUTE/vc/ .
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ValleyCore.tar.gz
         path: ${{ env.HOME_ABSOLUTE }}/publish/*
