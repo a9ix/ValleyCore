@@ -2,4 +2,4 @@
 c833a4487106b861babbeac1e6ef880b7adcdad430bdb8ddaa6807725ec6927e  microsoft.netcore.app.host.linux-arm64.6.0.32.nupkg
 91d8fc89aff676eda828683830974ed97cada53de043d50e887542c9f897d95f  microsoft.netcore.app.runtime.linux-arm64.6.0.32.nupkg
 f624299a480d91d2be728971c4486dec0df43118c6d2c9032643d5c826a4ac5e  skiasharp.nativeassets.linux.2.80.3.nupkg
-dba6d7e4e3d1ce5821f4d7902f931d80793ac46bae4c8aadd39fec8da204573a  SMAPI-4.4.0-installer.zip
+ee3dc8f771858da8610c9e6b1322d934b0e981804a2d656fcb237989dbe8f7b7  SMAPI-4.5.1-installer.zip

@@ -6,7 +6,7 @@ Play Stardew Valley natively on 64-bit ARM systems running Linux, with support f
 *Screenshot by [NoaHimesaka1873](https://github.com/NoaHimesaka1873)*
 
 ## Installation
-0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). Steam version might work.
+0. Purchase and download [Stardew Valley from GOG](https://www.gog.com/en/game/stardew_valley). The Steam version should also be supported.
 1. Make sure that both SDL2 and OpenAL are installed (on Debian-based distros: `sudo apt install libsdl2-2.0-0 libopenal1`)
 2. Download the latest version of ValleyCore from releases, and extract the files to the game directory (if the game is directly in your home directory: `cd ~/Stardew\ Valley/game && tar -xzf ~/Downloads/ValleyCore.tar.gz`)
 3. Run the patch.sh script (e.g. `~/Stardew\ Valley/game/patch.sh`)
